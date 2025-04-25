@@ -1,0 +1,94 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<!-- Animate On Scroll CSS -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+<div class="container py-5">
+    <!-- Header -->
+    {% if messages %}
+    <div class="mt-3">
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <div class="text-center mb-5" data-aos="fade-down">
+        <h1 class="display-4 fw-bold">About This Edreate Blog</h1>
+        <p class="lead text-muted">Welcome to <strong>Edreate Blog</strong> — your space to share thoughts, ideas, and stories with the world.</p>
+    </div>
+
+    <!-- What is Django Blog -->
+    <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="100">
+        <div class="col-lg-8">
+            <h3 class="h4 mb-3"><i class="bi bi-pin-angle-fill text-danger me-2"></i><strong>What is Edreate Blog?</strong></h3>
+            <p>Edreate Blog is a full-stack blog web app built with Django. It provides:</p>
+            <ul class="list-unstyled ps-3">
+                <li>✅ Create, read, update, and delete blog posts</li>
+                <li>✅ Register and manage user profiles</li>
+                <li>✅ Browse and interact with other posts</li>
+                <li>✅ Mobile-responsive UI using Bootstrap</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Why This Project -->
+    <div class="row justify-content-center mt-5" data-aos="fade-up" data-aos-delay="200">
+        <div class="col-lg-8">
+            <h3 class="h4 mb-3"><i class="bi bi-rocket-takeoff-fill text-primary me-2"></i><strong>Why this project?</strong></h3>
+            <p>This blog was created as a practical project to master Django and showcase web development skills, including user authentication, CRUD operations, and responsive design.</p>
+        </div>
+    </div>
+
+    <!-- Technologies Used -->
+    <div class="row justify-content-center mt-5" data-aos="fade-up" data-aos-delay="300">
+        <div class="col-lg-8">
+            <h3 class="h4 mb-3"><i class="bi bi-tools text-secondary me-2"></i><strong>Technologies Used</strong></h3>
+            <ul class="list-unstyled ps-3">
+                <li>🧠 <strong>Django:</strong> backend logic and database handling</li>
+                <li>🎨 <strong>HTML, CSS, Bootstrap:</strong> for responsive front-end</li>
+                <li>💾 <strong>SQLite:</strong> lightweight dev database</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Contributors -->
+    <div class="row justify-content-center mt-5" data-aos="fade-up" data-aos-delay="400">
+        <div class="col-lg-8">
+            <h3 class="h4 mb-3"><i class="bi bi-people-fill text-info me-2"></i><strong>Contributors</strong></h3>
+            <ul>
+                <li><strong>You</strong> – Developer & Designer</li>
+                <!-- Add more names if you collaborate with others -->
+            </ul>
+        </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="row justify-content-center mt-5" data-aos="fade-up" data-aos-delay="500">
+        <div class="col-lg-8">
+            <h3 class="h4 mb-3"><i class="bi bi-chat-dots-fill text-success me-2"></i><strong>Contact Us</strong></h3>
+            <form method="post" action="{% url 'contact' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="name" class="form-label">Your Name</label>
+                    <input type="text" name="name" class="form-control" id="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Your Email</label>
+                    <input type="email" name="email" class="form-control" id="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea name="message" class="form-control" id="message" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary px-4">Send Message</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- AOS JS -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
+{% endblock content %}

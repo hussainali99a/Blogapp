@@ -1,0 +1,340 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap & Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+
+    {% if title %}
+    <title>Django Blog - {{ title }}</title>
+    {% else %}
+    <title>Django Blog</title>
+    {% endif %}
+
+    <!-- Custom CSS for Animations and Effects -->
+    <style>
+        /* --- Base Styles & Smooth Scrolling --- */
+        html {
+            scroll-behavior: smooth; /* Enable smooth scrolling for anchor links */
+        }
+
+        /* body { */
+            /* Optional: Add a very subtle background pattern or gradient if desired */
+            /* background-image: linear-gradient(to bottom right, #f8f9fa, #e9ecef); */
+        /* } */
+
+        /* --- General Animation Definitions --- */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideDownFade {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+         @keyframes popIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* --- Navbar Animations & Effects --- */
+        .site-header .navbar {
+            /* Apply a subtle slide-down fade-in animation */
+            opacity: 0;
+            animation: slideDownFade 0.6s ease-out 0.1s forwards; /* Delay slightly */
+        }
+
+        .navbar-nav .nav-link {
+            position: relative; /* Needed for pseudo-element */
+            transition: color 0.3s ease;
+            padding-bottom: 8px; /* Add space for underline */
+        }
+
+        /* Underline effect */
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 5px; /* Position underline */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.7); /* Underline color */
+            transition: width 0.3s ease-out;
+        }
+
+        .navbar-nav .nav-link:hover::after,
+        .navbar-nav .nav-link.active::after {
+            width: 70%; /* Width of underline on hover/active */
+        }
+
+        .navbar-nav .nav-link:hover {
+             color: #ffffff; /* Brighter color on hover */
+        }
+
+        /* Button style for logout link */
+        .navbar .btn-link.nav-link {
+            border: none;
+            background: none;
+            padding: 0.5rem 1rem; /* Match nav-link padding */
+            color: rgba(255, 255, 255, 0.5); /* Default color */
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+        .navbar .btn-link.nav-link:hover {
+            color: #ffffff;
+            text-decoration: none; /* Remove default button underline */
+        }
+        .navbar .btn-link.nav-link:focus {
+            box-shadow: none; /* Remove focus outline */
+        }
+
+
+        /* --- Main Content & Sidebar Animations --- */
+        main.container {
+            /* Add padding top to account for fixed navbar more dynamically */
+            padding-top: 70px; /* Adjust based on your navbar height */
+        }
+
+        /* Stagger the animation for content and sidebar */
+        main .col-md-8 {
+            opacity: 0;
+            animation: slideUpFade 0.7s ease-out 0.4s forwards; /* Delay after navbar */
+        }
+
+        main .col-md-4 .content-section {
+            opacity: 0;
+            animation: slideUpFade 0.7s ease-out 0.6s forwards; /* Delay slightly more */
+            transition: box-shadow 0.3s ease; /* Add transition for hover shadow */
+        }
+        main .col-md-4 .content-section:hover {
+             box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Add subtle shadow on hover */
+        }
+
+        /* --- Alert Message Animation --- */
+        .alert {
+            opacity: 0;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; /* Pop-in effect */
+            /* Existing shadow is good */
+        }
+
+        /* --- Sidebar List Item Effects --- */
+        .content-section .list-group-item {
+            transition: background-color 0.3s ease, transform 0.2s ease, border-left-color 0.3s ease;
+            border-left: 3px solid transparent; /* Prepare for border effect */
+        }
+
+        .content-section .list-group-item:hover {
+            background-color: #f8f9fa; /* Light background on hover */
+            transform: translateX(5px); /* Slight nudge to the right */
+            cursor: pointer;
+            border-left-color: #007bff; /* Highlight with primary color */
+        }
+        .content-section .list-group-item:hover i {
+             color: #0056b3; /* Darker primary color for icon on hover */
+        }
+
+        /* --- Footer Animation --- */
+        footer.bg-steel {
+            opacity: 0;
+            animation: slideUpFade 0.8s ease-out 0.8s forwards; /* Delay after content/sidebar */
+        }
+
+        /* --- Blog Post Card Hover Effect (Apply '.post-card' in your loop) --- */
+        /* Add this class to the container of each blog post in your listing template (e.g., home.html) */
+        /* Example: <article class="media content-section post-card"> ... </article> */
+        .post-card {
+             transition: transform 0.3s ease, box-shadow 0.3s ease;
+             margin-bottom: 2rem; /* Ensure space */
+             border-radius: 0.25rem; /* Match content-section */
+        }
+        .post-card:hover {
+             transform: translateY(-5px); /* Lift effect */
+             box-shadow: 0 8px 20px rgba(0,0,0,0.12); /* Enhanced shadow */
+        }
+
+
+        /* --- Existing bg-steel style --- */
+        .bg-steel {
+            background-color: #57738C;
+        }
+
+        /* Add some extra bottom margin to main to prevent overlap with footer during animation */
+        main {
+            margin-bottom: 30px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <header class="site-header">
+        <!-- Navbar remains structurally the same -->
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+            <div class="container">
+                <a class="navbar-brand mr-4 d-flex align-items-center" href="{% url 'blog-home' %}">
+                    <img src="{% static 'images/edreate-logo-transparent-background.webp' %}" alt="Logo" style="height: 30px;" class="mr-2">
+                     <!-- Optional: Add site name text if logo isn't enough -->
+                     <!-- <span style="font-weight: bold;">Django Blog</span> -->
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarToggle">
+                    <div class="navbar-nav mr-auto">
+                        <a class="nav-item nav-link {% if request.resolver_match.url_name == 'blog-home' %}active{% endif %}" href="{% url 'blog-home' %}">
+                            <i class="fas fa-home mr-1"></i> Home
+                        </a>
+                        <a class="nav-item nav-link {% if request.resolver_match.url_name == 'blog-about' %}active{% endif %}" href="{% url 'blog-about' %}">
+                            <i class="fas fa-info-circle mr-1"></i> About
+                        </a>
+                        <!-- Add more nav items here if needed -->
+                    </div>
+                    <!-- Navbar Right Side -->
+                    <div class="navbar-nav align-items-md-center"> <!-- Use align-items-md-center for better vertical alignment on medium+ screens -->
+                        {% if user.is_authenticated %}
+                            <a class="nav-item nav-link" href="{% url 'post-create' %}">
+                                <i class="fas fa-plus-circle mr-1"></i> New Post
+                            </a>
+                            <a class="nav-item nav-link" href="{% url 'profile' %}">
+                                <i class="fas fa-user-circle mr-1"></i> Profile
+                            </a>
+                            <!-- Use a form but style the button like a nav-link -->
+                            <form method="post" action="{% url 'logout' %}" class="form-inline ml-md-2"> <!-- Add margin only on medium+ screens -->
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-link nav-item nav-link p-0"> <!-- Reset padding -->
+                                    <i class="fas fa-sign-out-alt mr-1"></i> Logout
+                                </button>
+                            </form>
+                        {% else %}
+                            <a class="nav-item nav-link" href="{% url 'login' %}">
+                                <i class="fas fa-sign-in-alt mr-1"></i> Login
+                            </a>
+                            <a class="nav-item nav-link" href="{% url 'register' %}">
+                                <i class="fas fa-user-plus mr-1"></i> Register
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Add a bit more top margin here, handled by CSS now -->
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-8">
+                {% if messages %}
+                    {% for message in messages %}
+                        <!-- Alert styling enhanced via CSS -->
+                        <div class="alert alert-{{ message.tags }} shadow-sm" role="alert"> <!-- Add role="alert" for accessibility -->
+                            <div class="d-flex align-items-center">
+                                {% if message.tags == 'success' %}<i class="fas fa-check-circle mr-2 text-success"></i>{% endif %}
+                                {% if message.tags == 'info' %}<i class="fas fa-info-circle mr-2 text-info"></i>{% endif %}
+                                {% if message.tags == 'warning' %}<i class="fas fa-exclamation-triangle mr-2 text-warning"></i>{% endif %}
+                                {% if message.tags == 'error' %}<i class="fas fa-times-circle mr-2 text-danger"></i>{% endif %}
+                                {{ message }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% block content %}{% endblock %}
+            </div>
+            <div class="col-md-4">
+                <!-- Sidebar styling enhanced via CSS -->
+                <div class="content-section shadow-sm"> <!-- Added shadow-sm for consistency -->
+                    <h3 class="border-bottom pb-3 mb-4">Sidebar</h3> <!-- Increased bottom margin -->
+                    <p class='text-muted small mb-3'>Useful links and information below.</p> <!-- Made text smaller -->
+                    <ul class="list-group list-group-flush mb-3"> <!-- Flush removes outer borders -->
+                        <li class="list-group-item d-flex align-items-center">
+                            <i class="fas fa-newspaper fa-fw mr-2 text-primary"></i> Latest Posts
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <i class="fas fa-bullhorn fa-fw mr-2 text-success"></i> Announcements
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <i class="fas fa-calendar-alt fa-fw mr-2 text-warning"></i> Events
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <i class="fas fa-tags fa-fw mr-2 text-info"></i> Categories
+                        </li>
+                        <!-- Add more relevant sidebar links -->
+                    </ul>
+                    {% if user.is_authenticated %}
+                    <div class="p-3 bg-light rounded mt-3 border"> <!-- Added border -->
+                        <p class="mb-0 small d-flex align-items-center">
+                            <i class="fas fa-user-check mr-2 text-muted"></i>
+                            Logged in as <strong class="ml-1">{{ user.username }}</strong>
+                        </p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer styling enhanced via CSS -->
+    <footer class="bg-steel text-white py-4 mt-5 shadow-lg"> <!-- Added shadow -->
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-3 mb-md-0">
+                     <img src="{% static 'images/edreate-logo-transparent-background.webp' %}" alt="Logo" style="height: 30px;" class="d-block mb-2">
+                    <p class="small mb-0 text-white-50">
+                        Your awesome blog description goes here. <br> Built with Django & Bootstrap.
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-right text-center"> <!-- Center text on small screens -->
+                     <!-- Add Social Links -->
+                     <div class="mb-2">
+                         <a href="#" class="text-white-50 mx-2"><i class="fab fa-twitter fa-lg"></i></a>
+                         <a href="#" class="text-white-50 mx-2"><i class="fab fa-github fa-lg"></i></a>
+                         <a href="#" class="text-white-50 mx-2"><i class="fab fa-linkedin-in fa-lg"></i></a>
+                     </div>
+                    <p class="small mb-0 text-white-50">
+                        © {% now "Y" %} Edreate Blog. All Rights Reserved.
+                    </p>
+                     <p class="small mb-0 text-white-50">
+                         <a href="#" class="text-white-50">Privacy Policy</a> | <a href="#" class="text-white-50">Terms of Service</a>
+                     </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+    <script>
+        // Auto-hide alerts after 5 seconds with fade out
+        $(document).ready(function() {
+            // Target alerts that are not already fading out
+            window.setTimeout(function() {
+                $(".alert").not('.fade').fadeOut(1000, function() { // Use fadeOut for smoother exit
+                    $(this).remove(); // Remove element after fading
+                });
+            }, 5000); // 5 seconds
+
+            // Optional: Close alert manually
+            $('.alert').on('click', function() {
+                 $(this).fadeOut(500, function() {
+                     $(this).remove();
+                 });
+            });
+        });
+    </script>
+</body>
+</html>
