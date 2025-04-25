@@ -3,92 +3,124 @@
 <!-- Animate On Scroll CSS -->
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
+<!-- Counter Styling -->
+<style>
+    .counter {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+</style>
+
 <div class="container py-5">
-    <!-- Header -->
+
     {% if messages %}
     <div class="mt-3">
       {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        <div class="alert alert-{{ message.tags }} shadow-sm rounded-3">{{ message }}</div>
       {% endfor %}
     </div>
     {% endif %}
-    <div class="text-center mb-5" data-aos="fade-down">
-        <h1 class="display-4 fw-bold">About This Edreate Blog</h1>
-        <p class="lead text-muted">Welcome to <strong>Edreate Blog</strong> — your space to share thoughts, ideas, and stories with the world.</p>
-    </div>
 
-    <!-- What is Django Blog -->
-    <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="100">
-        <div class="col-lg-8">
-            <h3 class="h4 mb-3"><i class="bi bi-pin-angle-fill text-danger me-2"></i><strong>What is Edreate Blog?</strong></h3>
-            <p>Edreate Blog is a full-stack blog web app built with Django. It provides:</p>
-            <ul class="list-unstyled ps-3">
-                <li>✅ Create, read, update, and delete blog posts</li>
-                <li>✅ Register and manage user profiles</li>
-                <li>✅ Browse and interact with other posts</li>
-                <li>✅ Mobile-responsive UI using Bootstrap</li>
-            </ul>
+    <!-- Hero -->
+    <section class="text-center mb-5" data-aos="fade-down">
+        <h1 class="display-4 fw-bold text-gradient bg-gradient text-primary">Welcome to Edreate Blog</h1>
+        <p class="lead text-muted">Your platform to share <span class="fw-semibold">ideas</span>, <span class="fw-semibold">thoughts</span>, and <span class="fw-semibold">stories</span>.</p>
+        <hr class="w-25 mx-auto border-primary opacity-75">
+    </section>
+
+    <!-- Animated Stats -->
+    <section class="row text-center mb-5" data-aos="fade-up" data-aos-delay="50">
+        <div class="col-md-4">
+            <div class="counter text-primary" data-target="128">0</div>
+            <p class="text-muted">Published Posts</p>
         </div>
-    </div>
+        <div class="col-md-4">
+            <div class="counter text-success" data-target="43">0</div>
+            <p class="text-muted">Registered Users</p>
+        </div>
+        <div class="col-md-4">
+            <div class="counter text-info" data-target="1">0</div>
+            <p class="text-muted">Contributors</p>
+        </div>
+    </section>
+
+    <!-- What is Edreate Blog -->
+    <section class="bg-light rounded-4 p-5 shadow-sm mb-5" data-aos="fade-up" data-aos-delay="100">
+        <h3 class="h4 mb-3"><i class="bi bi-pin-angle-fill text-danger me-2"></i><strong>What is Edreate Blog?</strong></h3>
+        <p>Edreate Blog is a Django-based blogging platform built with modern web technologies. Key features include:</p>
+        <ul class="list-unstyled ps-3">
+            <li>✅ CRUD operations for blog posts</li>
+            <li>✅ User registration, login & profile editing</li>
+            <li>✅ Responsive UI & clean design</li>
+            <li>✅ Social-friendly & extensible structure</li>
+        </ul>
+    </section>
 
     <!-- Why This Project -->
-    <div class="row justify-content-center mt-5" data-aos="fade-up" data-aos-delay="200">
-        <div class="col-lg-8">
-            <h3 class="h4 mb-3"><i class="bi bi-rocket-takeoff-fill text-primary me-2"></i><strong>Why this project?</strong></h3>
-            <p>This blog was created as a practical project to master Django and showcase web development skills, including user authentication, CRUD operations, and responsive design.</p>
-        </div>
-    </div>
+    <section class="bg-white rounded-4 p-5 shadow-sm mb-5" data-aos="fade-up" data-aos-delay="200">
+        <h3 class="h4 mb-3"><i class="bi bi-rocket-takeoff-fill text-primary me-2"></i><strong>Why This Project?</strong></h3>
+        <p>It’s a passion project to explore Django while practicing real-world dev tools: secure auth, dynamic routing, template systems, form handling, deployment prep — all with UX polish.</p>
+    </section>
 
-    <!-- Technologies Used -->
-    <div class="row justify-content-center mt-5" data-aos="fade-up" data-aos-delay="300">
-        <div class="col-lg-8">
-            <h3 class="h4 mb-3"><i class="bi bi-tools text-secondary me-2"></i><strong>Technologies Used</strong></h3>
-            <ul class="list-unstyled ps-3">
-                <li>🧠 <strong>Django:</strong> backend logic and database handling</li>
-                <li>🎨 <strong>HTML, CSS, Bootstrap:</strong> for responsive front-end</li>
-                <li>💾 <strong>SQLite:</strong> lightweight dev database</li>
-            </ul>
-        </div>
-    </div>
+    <!-- Technologies Used (Progress Bars) -->
+    <section class="bg-light rounded-4 p-5 shadow-sm mb-5" data-aos="fade-up" data-aos-delay="300">
+        <h3 class="h4 mb-4"><i class="bi bi-tools text-secondary me-2"></i><strong>Technologies Used</strong></h3>
+        <div class="mb-3">Django <div class="progress"><div class="progress-bar bg-primary" style="width: 90%;">90%</div></div></div>
+        <div class="mb-3">Bootstrap & CSS <div class="progress"><div class="progress-bar bg-success" style="width: 85%;">85%</div></div></div>
+        <div class="mb-3">SQLite <div class="progress"><div class="progress-bar bg-warning" style="width: 70%;">70%</div></div></div>
+        <div class="mb-3">JavaScript & AOS <div class="progress"><div class="progress-bar bg-info" style="width: 60%;">60%</div></div></div>
+    </section>
 
-    <!-- Contributors -->
-    <div class="row justify-content-center mt-5" data-aos="fade-up" data-aos-delay="400">
-        <div class="col-lg-8">
-            <h3 class="h4 mb-3"><i class="bi bi-people-fill text-info me-2"></i><strong>Contributors</strong></h3>
-            <ul>
-                <li><strong>You</strong> – Developer & Designer</li>
-                <!-- Add more names if you collaborate with others -->
-            </ul>
-        </div>
-    </div>
+    <!-- Contact -->
+    <section class="bg-white rounded-4 p-5 shadow-sm" data-aos="fade-up" data-aos-delay="400">
+        <h3 class="h4 mb-4"><i class="bi bi-chat-dots-fill text-success me-2"></i><strong>Contact Us</strong></h3>
+        <form method="post" action="{% url 'contact' %}">
+            {% csrf_token %}
+            <div class="form-floating mb-3">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                <label for="name">Your Name</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com" required>
+                <label for="email">Your Email</label>
+            </div>
+            <div class="form-floating mb-4">
+                <textarea name="message" class="form-control" id="message" placeholder="Leave a message" style="height: 150px;" required></textarea>
+                <label for="message">Message</label>
+            </div>
+            <button type="submit" class="btn btn-primary px-4">Send Message</button>
+        </form>
 
-    <!-- Contact Form -->
-    <div class="row justify-content-center mt-5" data-aos="fade-up" data-aos-delay="500">
-        <div class="col-lg-8">
-            <h3 class="h4 mb-3"><i class="bi bi-chat-dots-fill text-success me-2"></i><strong>Contact Us</strong></h3>
-            <form method="post" action="{% url 'contact' %}">
-                {% csrf_token %}
-                <div class="mb-3">
-                    <label for="name" class="form-label">Your Name</label>
-                    <input type="text" name="name" class="form-control" id="name" required>
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Your Email</label>
-                    <input type="email" name="email" class="form-control" id="email" required>
-                </div>
-                <div class="mb-3">
-                    <label for="message" class="form-label">Message</label>
-                    <textarea name="message" class="form-control" id="message" rows="4" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary px-4">Send Message</button>
-            </form>
+        <!-- Social Links -->
+        <div class="mt-4 text-center">
+            <a href="#" class="text-dark me-3 fs-4"><i class="bi bi-github"></i></a>
+            <a href="#" class="text-primary me-3 fs-4"><i class="bi bi-linkedin"></i></a>
+            <a href="#" class="text-danger fs-4"><i class="bi bi-envelope-fill"></i></a>
         </div>
-    </div>
+    </section>
 </div>
 
-<!-- AOS JS -->
+<!-- AOS + Counter Script -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-    AOS.init();
+    AOS.init({ duration: 1000, once: true });
+
+    // Counter animation
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach(counter => {
+        counter.innerText = '0';
+        const updateCount = () => {
+            const target = +counter.getAttribute('data-target');
+            const current = +counter.innerText;
+            const increment = target / 50;
+            if (current < target) {
+                counter.innerText = Math.ceil(current + increment);
+                setTimeout(updateCount, 30);
+            } else {
+                counter.innerText = target;
+            }
+        };
+        updateCount();
+    });
 </script>
 {% endblock content %}
