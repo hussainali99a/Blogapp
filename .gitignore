@@ -3,4 +3,4 @@ __pycache__/
 env/
 .ipynb_checkpoints/
 db.sqlite3
-media/
+media/profile_pics/
