@@ -1,6 +1,0 @@
-__pycache__/
-.env
-env/
-.ipynb_checkpoints/
-db.sqlite3
-media/profile_pics/
